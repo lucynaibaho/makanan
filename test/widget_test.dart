@@ -11,20 +11,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:makanan/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('login opens the menu catalog', (WidgetTester tester) async {
+    await tester.pumpWidget(const MakananApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('Email / Username'), findsOneWidget);
+    await tester.enterText(find.byType(TextField).at(0), 'Lucy naibaho');
+    await tester.enterText(find.byType(TextField).at(1), '124240040');
+    await tester.tap(find.text('Masuk'));
+    await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Menu pilihan'), findsOneWidget);
+    expect(find.text('Nasi Goreng Kampung'), findsOneWidget);
   });
 }
